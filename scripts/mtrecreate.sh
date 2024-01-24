@@ -127,7 +127,7 @@ declare -a deployments=("wa-dwf-ibm-mt-dwf-lcm" "wa-dwf-ibm-mt-dwf-trainer" "wa-
 # Function to check if a deployment is ready
 check_deployments_ready() {
   local deployment=$1
-  local deployment_status=$(oc get deployment "$deployment" -o=jsonpath='{.status.conditions[?(@.type=="Available")].status}')
+  local deployment_status=$(oc get deployment "$deployment" -n $PROJECT_CPD_INSTANCE -o=jsonpath='{.status.conditions[?(@.type=="Available")].status}')
 
   if [ "$deployment_status" = "True" ]; then
     echo -e "\nDeployment $deployment is ready."
